@@ -15,7 +15,6 @@
 	} 
 ?>
 
-
 <html>
 <head>
 	<style>
@@ -41,19 +40,27 @@
 	<?php
 	$time_start = microtime(true);
 	echo "Connecting to SQL server (" . $serverName . ")<br/>";
-	echo "Database: " . $connectionOptions[Database] . ", SQL User: " . $connectionOptions[Uid] . "<br/>";
+	echo "Database: " . $connectionOptions['Database'] . ", SQL User: " . $connectionOptions['Uid'] . "<br/>";
 	//echo "Pass: " . $connectionOptions[PWD] . "<br/>";
 
 	//Establishes the connection
 	$conn = sqlsrv_connect($serverName, $connectionOptions);
 
-	//Read Stored proc without param
-	$tsql = "{call EmployeesFromCity}";  
-	echo "Executing query: " . $tsql . ") without any parameter<br/>";
-	$getResults= sqlsrv_query($conn, $tsql);
+	//Read Stored proc with param
+	$tsql = "{call snassa01.Q5ADD_MC_ANSWER(?,?,?)}";  
+
+	// Getting parameter from the http call and setting it for the SQL call
+	$params = array(  
+					 array($_GET["QID"], SQLSRV_PARAM_IN),
+                     array($_GET["txtt"], SQLSRV_PARAM_IN),
+                     array($_GET["correct"], SQLSRV_PARAM_IN)
+					);  
+
+	$getResults= sqlsrv_query($conn, $tsql, $params);
 	echo ("Results:<br/>");
 	if ($getResults == FALSE)
 		die(FormatErrors(sqlsrv_errors()));
+
 	PrintResultSet($getResults);
 	/* Free query  resources. */  
 	sqlsrv_free_stmt($getResults);
@@ -99,21 +106,22 @@
 			echo "Message: ".$error['message']."";
 		}
 	}
+
 	?>
 
-	<hr>
+<hr>
 	<?php
 		if(isset($_POST['disconnect'])) { 
-			echo "Clossing session and redirecting to start page"; 
+			echo "Logging out and redirecting to start page";
 			session_unset();
 			session_destroy();
-			die('<meta http-equiv="refresh" content="1; url=index.php" />');
+			die('<meta http-equiv="refresh" content="2; url=index.php" />');
 		} 
 	?> 
 	
 	<form method="post"> 
-		<input type="submit" name="disconnect" value="Disconnect"/> 
-		<input type="submit" value="Menu" formaction="connect.php">
-	</form> 
+		<input type="submit" name="disconnect" value="LOGOUT"/> 
+	</form>
+
 </body>
 </html>

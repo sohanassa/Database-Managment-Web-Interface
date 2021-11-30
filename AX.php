@@ -19,24 +19,31 @@
 	</tr>
     </table>
 	<hr>
-    <a href="Q5SUPER.php">Manage Questions</a><br>
-    <a href="Q6SUPER.php">Manage Questionnaires</a><br>
-	<a href="Q7.php">Query 7</a><br> 
-	<a href="Q8.php">Query 8</a><br> 
-	<a href="Q9.php">Query 9</a><br> 
-	<a href="Q10.php">Query 10</a><br> 
-	<a href="Q11.php">Query 11</a><br> 
-	<a href="Q12.php">Query 12</a><br>
-	<a href="Q13.php">Query 13</a><br> 
-	<a href="Q14.php">Query 14</a><br> 
+    <a href="Q5SUPER.php">Q5 - Manage Questions</a><br><br>
+    <a href="Q6SUPER.php">Q6 - Manage Questionnaires</a><br><br>
+	<a href="Q7.php">Query 7</a><br> <br>
+	<a href="Q8.php">Query 8</a><br> <br>
+	<a href="Q9.php">Query 9</a><br> <br>
+	<a href="Q10.php">Query 10</a><br> <br>
+	<a href="Q11.php">Query 11</a><br> <br>
+	<a href="Q12.php">Query 12</a><br><br>
+	<a href="Q13.php">Query 13</a><br> <br>
+	<form action="Q14.php" method="get">
+		Query 14</a><br>
+		Questionnaire ID:: <input type="int" name="Qnum" value="">
+    <input type="submit" name="Query 14">
+	</form>
 	<form action="Q15.php" method="get">
 		Query 15</a><br>
-		Parameter: <input type="int" name="number" value=0>
+		How many to show "K"): <input type="int" name="number" value="">
     <input type="submit" name="Query 15">
 	</form>
-	<a href="Q16.php">Query 16</a><br> 
-	<a href="Q17.php">Query 17</a><br> 
-
+	<a href="Q16.php">Query 16</a><br> <br>
+	<form action="Q17.php" method="get">
+		Query 17</a><br>
+		Questionnaire ID: <input type="int" name="Qnum" value="">
+    <input type="submit" name="Query 17"> 
+	</form>
 	<hr>
 	<?php
 		if(isset($_POST['disconnect'])) { 

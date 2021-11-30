@@ -12,14 +12,15 @@
 				<a href="http://www.cs.ucy.ac.cy/">Dept. of Computer Science</a>
 			</h5>
 		</td>
-		<td vAlign=center align=middle><h2>Welcome to the EPL342 project test page</h2></td>
+		<td vAlign=center align=middle><h2>EPL342 project page!</h2>
+		<h3>Made by Sohaib Nassar, Annamaria Sofroniou and Andreas Loizides :)</h3></td>
 	</tr>
     </table>
 	<hr>
     
-    Please login into the system, :)
+    Enter LOGIN to start!<br><br>
     <form action="login.php" method="post">
-    <input type="submit" name="connect"> 
+    <input type="submit" name="connect" value="LOGIN"> 
     </form>
 </body>
 

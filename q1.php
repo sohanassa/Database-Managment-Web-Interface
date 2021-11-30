@@ -15,7 +15,6 @@
 	} 
 ?>
 
-
 <html>
 <head>
 	<style>
@@ -41,23 +40,33 @@
 	<?php
 	$time_start = microtime(true);
 	echo "Connecting to SQL server (" . $serverName . ")<br/>";
-	echo "Database: " . $connectionOptions[Database] . ", SQL User: " . $connectionOptions[Uid] . "<br/>";
+	echo "Database: " . $connectionOptions['Database'] . ", SQL User: " . $connectionOptions['Uid'] . "<br/>";
 	//echo "Pass: " . $connectionOptions[PWD] . "<br/>";
 
 	//Establishes the connection
 	$conn = sqlsrv_connect($serverName, $connectionOptions);
 
-	//Read Query
-	$tsql= "SELECT [ID], [Last Name], [First Name], [E-mail Address], [Job Title], [City]  FROM Employees ORDER BY [Last Name], [First Name]";
+	//Read Stored proc with param
+	$tsql = "{call snassa01.Q1(?,?,?,?,?,?,?,?)}";  
 
-	echo "Executing query: " . $tsql . ")<br/>";
-	$getResults= sqlsrv_query($conn, $tsql);
-	echo "Results:<br/>";
-	//if ($getResults == FALSE)
-		//die(FormatErrors(sqlsrv_errors()));
+	// Getting parameter from the http call and setting it for the SQL call
+	$params = array(  
+                     array($_GET["Cname"], SQLSRV_PARAM_IN),
+                     array($_GET["CRegN"], SQLSRV_PARAM_IN),
+					 array($_GET["DEname"], SQLSRV_PARAM_IN),
+                     array($_GET["DEbirth"], SQLSRV_PARAM_IN),
+                     array($_GET["DEusername"], SQLSRV_PARAM_IN),
+                     array($_GET["DEpassword"], SQLSRV_PARAM_IN),
+                     array($_GET["DEsex"], SQLSRV_PARAM_IN),
+                     array($_GET["DEID"], SQLSRV_PARAM_IN)
+					);  
 
-	PrintResultSet($getResults);
+	$getResults= sqlsrv_query($conn, $tsql, $params);
+	echo ("Results:<br/>");
+	if ($getResults == FALSE)
+		die(FormatErrors(sqlsrv_errors()));
 
+	echo 'Company and User added succefully! <br/>';
 	/* Free query  resources. */  
 	sqlsrv_free_stmt($getResults);
 
@@ -68,24 +77,6 @@
 	$execution_time = round((($time_end - $time_start)*1000),2);
 	echo 'QueryTime: '.$execution_time.' ms';
 
-
-	/*
-	function PrintResultSet ($resultSet) {
-		while ($row = sqlsrv_fetch_array($resultSet, SQLSRV_FETCH_ASSOC)) {
-			$newRow = true;
-			foreach($row as $col){
-				if ($newRow) {
-					$newRow = false;
-					echo (is_null($col) ? "Null" : $col);
-				} else {
-					echo (", ".(is_null($col) ? "Null" : $col));
-				}
-			}
-			echo("<br/>");
-		}
-		echo ("<table><tr><td>---</td></tr></table>");
-	}
-	*/
 
 	function PrintResultSet ($resultSet) {
 		echo ("<table><tr >");
@@ -122,6 +113,7 @@
 	}
 
 	?>
+
 	<hr>
 	<?php
 		if(isset($_POST['disconnect'])) { 
@@ -133,7 +125,7 @@
 	?> 
 	
 	<form method="post"> 
-		<input type="submit" name="disconnect" value="Disconnect"/> 
+    <input type="submit" name="disconnect" value="LOGOUT"/> 
 		<input type="submit" value="Menu" formaction="connect.php">
 	</form> 
 

@@ -111,7 +111,7 @@
 	<hr>
 	<?php
 		if(isset($_POST['disconnect'])) { 
-			echo "Clossing session and redirecting to start page"; 
+			echo "Logging out and redirecting to start page"; 
 			session_unset();
 			session_destroy();
 			die('<meta http-equiv="refresh" content="1; url=index.php" />');
@@ -119,8 +119,7 @@
 	?> 
 	
 	<form method="post"> 
-		<input type="submit" name="disconnect" value="Disconnect"/> 
-		<input type="submit" value="Menu" formaction="connect.php">
+		<input type="submit" name="disconnect" value="LOGOUT"/> 
 	</form> 
 
 </body>

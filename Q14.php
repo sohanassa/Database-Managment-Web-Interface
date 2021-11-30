@@ -47,11 +47,11 @@
 	$conn = sqlsrv_connect($serverName, $connectionOptions);
 
 	//Read Stored proc with param
-	$tsql = "{call snassa01.Q13(?)}";  
+	$tsql = "{call snassa01.Q14(?)}";  
 
 	// Getting parameter from the http call and setting it for the SQL call
 	$params = array(  
-					 array($_SESSION["UserID"], SQLSRV_PARAM_IN)
+					 array($_GET["Qnum"], SQLSRV_PARAM_IN)
 					);  
 
 	$getResults= sqlsrv_query($conn, $tsql, $params);

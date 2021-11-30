@@ -50,7 +50,7 @@
         $_SESSION["RegN"] = $row['RegN'];
         $_SESSION["UserType"] = $row['UserType'];
         } else {
-         $message = "Invalid Username or Password!";
+         
         }
     }
     if(isset($_SESSION["UserID"])) {
@@ -69,7 +69,7 @@
 <body>
 <form name="frmUser" method="post" action="" align="center">
 <div class="message"><?php if($message!="") { echo $message; } ?></div>
-<h3 align="center">Enter Login Details</h3>
+<h3 align="center">Enter User Credentials</h3>
  Username:<br>
  <input type="text" name="user_name">
  <br>
@@ -77,7 +77,6 @@
 <input type="password" name="password">
 <br><br>
 <input type="submit" name="submit" value="Submit">
-<input type="reset">
 </form>
 </body>
 </html>

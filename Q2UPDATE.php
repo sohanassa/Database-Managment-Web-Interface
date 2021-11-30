@@ -47,17 +47,18 @@
 	$conn = sqlsrv_connect($serverName, $connectionOptions);
 
 	//Read Stored proc with param
-	$tsql = "{call snassa01.Q3(?,?,?,?,?,?,?)}";  
+	$tsql = "{call snassa01.Q2UPDATE(?,?,?,?,?,?,?,?)}";  
 
 	// Getting parameter from the http call and setting it for the SQL call
 	$params = array(  
-					 array($_GET["AXname"], SQLSRV_PARAM_IN),
-                     array($_GET["AXbirth"], SQLSRV_PARAM_IN),
-                     array($_GET["AXusername"], SQLSRV_PARAM_IN),
-                     array($_GET["AXpassword"], SQLSRV_PARAM_IN),
-                     array($_GET["AXsex"], SQLSRV_PARAM_IN),
-                     array($_GET["AXID"], SQLSRV_PARAM_IN),
-                     array($_SESSION["RegN"], SQLSRV_PARAM_IN)
+                     array($_GET["updateRegN"], SQLSRV_PARAM_IN),
+                     array($_GET["Cname"], SQLSRV_PARAM_IN),
+					 array($_GET["DEname"], SQLSRV_PARAM_IN),
+                     array($_GET["DEbirth"], SQLSRV_PARAM_IN),
+                     array($_GET["DEusername"], SQLSRV_PARAM_IN),
+                     array($_GET["DEpassword"], SQLSRV_PARAM_IN),
+                     array($_GET["DEsex"], SQLSRV_PARAM_IN),
+                     array($_GET["EntryDate"], SQLSRV_PARAM_IN)
 					);  
 
 	$getResults= sqlsrv_query($conn, $tsql, $params);
@@ -65,7 +66,7 @@
 	if ($getResults == FALSE)
 		die(FormatErrors(sqlsrv_errors()));
 
-	echo 'User added succefully! <br/>';
+	echo 'Company and User updated succefully! <br/>';
 	/* Free query  resources. */  
 	sqlsrv_free_stmt($getResults);
 
@@ -116,7 +117,7 @@
 	<hr>
 	<?php
 		if(isset($_POST['disconnect'])) { 
-			echo "Logging out and redirecting to start page";
+			echo "Clossing session and redirecting to start page"; 
 			session_unset();
 			session_destroy();
 			die('<meta http-equiv="refresh" content="1; url=index.php" />');
@@ -124,7 +125,7 @@
 	?> 
 	
 	<form method="post"> 
-	<input type="submit" name="disconnect" value="LOGOUT"/> 
+    <input type="submit" name="disconnect" value="LOGOUT"/> 
 		<input type="submit" value="Menu" formaction="connect.php">
 	</form> 
 
