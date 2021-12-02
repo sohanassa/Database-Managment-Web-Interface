@@ -20,7 +20,7 @@
     </table>
 	<hr>
     <form action="Q3.php" method="get">
-		Query 3</a><br>
+		Enter Users's Data</a><br>
 		Name: <input type="text" name="AXname" value=""><br>
         Date of birth (mm/dd/yyyy): <input type="text" name="AXbirth" value=""><br>
         Username: <input type="text" name="AXusername" value=""><br>
