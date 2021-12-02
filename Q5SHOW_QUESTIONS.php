@@ -32,7 +32,7 @@
 				<a href="http://www.cs.ucy.ac.cy/">Dept. of Computer Science</a>
 			</h5>
 		</td>
-		<td vAlign=center align=middle><h2>Welcome to the EPL342 project test page</h2></td>
+		<td vAlign=center align=middle><h2></h2></td>
 	</tr>
     </table>
 	<hr>
