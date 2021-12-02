@@ -51,7 +51,7 @@
 
 	// Getting parameter from the http call and setting it for the SQL call
 	$params = array(  
-					 array($_SESSION["UserID"], SQLSRV_PARAM_IN)
+					 array($_SESSION["RegN"], SQLSRV_PARAM_IN)
 					);  
 
 	$getResults= sqlsrv_query($conn, $tsql, $params);
@@ -107,10 +107,10 @@
 
 	?>
 
-	<hr>
+<hr>
 	<?php
 		if(isset($_POST['disconnect'])) { 
-			echo "Clossing session and redirecting to start page"; 
+			echo "Logging out and redirecting to start page";
 			session_unset();
 			session_destroy();
 			die('<meta http-equiv="refresh" content="1; url=index.php" />');
@@ -118,9 +118,9 @@
 	?> 
 	
 	<form method="post"> 
-		<input type="submit" name="disconnect" value="Disconnect"/> 
+	<input type="submit" name="disconnect" value="LOGOUT"/> 
 		<input type="submit" value="Menu" formaction="connect.php">
-	</form> 
+	</form>  
 
 </body>
 </html>

@@ -51,7 +51,7 @@
 
 	// Getting parameter from the http call and setting it for the SQL call
 	$params = array(  
-					 array($_SESSION["RegN"], SQLSRV_PARAM_IN)
+					 array($_GET["Qnum"], SQLSRV_PARAM_IN)
 					);  
 
 	$getResults= sqlsrv_query($conn, $tsql, $params);

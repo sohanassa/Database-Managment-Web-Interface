@@ -19,13 +19,13 @@
 	</tr>
     </table>
 	<hr>
-	<a href="Q1.php">ADD new company and DE user</a><br>
-    <a href="Q2.php">View/Edit company and its DE user</a><br>
+	<a href="Q1SUPER.php">Q1 - Add new company and DE user</a><br><br>
+    <a href="Q2SUPER.php">Q2 - View/Edit company and its DE user</a><br>
 
 	<hr>
 	<?php
 		if(isset($_POST['disconnect'])) { 
-			echo "Clossing session and redirecting to start page"; 
+			echo "Logging out and redirecting to start page";
 			session_unset();
 			session_destroy();
 			die('<meta http-equiv="refresh" content="2; url=index.php" />');
@@ -33,7 +33,7 @@
 	?> 
 	
 	<form method="post"> 
-		<input type="submit" name="disconnect" value="Disconnect"/> 
+		<input type="submit" name="disconnect" value="LOGOUT"/> 
 	</form> 
 
 </body>
