@@ -32,7 +32,7 @@
 				<a href="http://www.cs.ucy.ac.cy/">Dept. of Computer Science</a>
 			</h5>
 		</td>
-		<td vAlign=center align=middle><h2>Welcome to the EPL342 project test page</h2></td>
+		<td vAlign=center align=middle><h2></h2></td>
 	</tr>
     </table>
 	<hr>
@@ -47,7 +47,7 @@
 	$conn = sqlsrv_connect($serverName, $connectionOptions);
 
 	//Read Stored proc with param
-	$tsql = "{call snassa01.Q16(?)}";  
+	$tsql = "{call aloizi04.Q16(?)}";  
 
 	// Getting parameter from the http call and setting it for the SQL call
 	$params = array(  
