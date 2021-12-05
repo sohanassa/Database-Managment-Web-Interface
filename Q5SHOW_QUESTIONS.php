@@ -47,13 +47,13 @@
 	$conn = sqlsrv_connect($serverName, $connectionOptions);
 
 	//Read Stored proc with param
-	$tsql= "SELECT Q.QuestionID, Q.Name, Q.Description, Q.Text, Q.Type, Q.BoundsID, Q.MCID FROM snassa01.Question Q, snassa01.Users U WHERE Q.UserID = U.UserID AND U.RegN = {$_SESSION["RegN"]} ";
+	$tsql= "SELECT Q.QuestionID, Q.Name, Q.Description, Q.Text, Q.Type, Q.BoundsID, Q.MCID FROM aloizi04.Question Q, aloizi04.Users U WHERE Q.UserID = U.UserID AND U.RegN = {$_SESSION["RegN"]} ";
 
 	$getResults= sqlsrv_query($conn, $tsql);
 	echo ("Results:<br/>");
 	if ($getResults == FALSE)
 		die(FormatErrors(sqlsrv_errors()));
-    $logResult = sqlsrv_query($conn, "insert into Log(UserID, ActionDescription) values (".$_SESSION["UserID"].",'Viewed Questions of Company ".$_SESSION["RegN"]."')");
+    $logResult = sqlsrv_query($conn, "insert into Log(UserID, ActionDescription) values (".$_SESSION["UserID"].",'Viewed Questions of Company ".$_SESSION["RegN"]." and  user ID ".$_GET["AXID"]."')");
 	PrintResultSet($getResults);
 	/* Free query  resources. */  
 	sqlsrv_free_stmt($getResults);
