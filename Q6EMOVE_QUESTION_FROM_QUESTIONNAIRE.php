@@ -61,6 +61,7 @@
 	if ($getResults == FALSE)
 		die(FormatErrors(sqlsrv_errors()));
     $logResult = sqlsrv_query($conn, "insert into Log(UserID, ActionDescription) values (".$_SESSION["UserID"].",'Removed Question with ID ".$_GET["QuestionRemove"]." from questionnaire with ID ".$_GET["QuestionnaireRemove"]."')");
+    $logResult = sqlsrv_query($conn, "insert into QuestionnaireLog(QuestionnaireID, ChangeDescription, UserID) values(".$_GET["QuestionnaireRemove"].",'Removed Question with ID ".$_GET["QuestionRemove"].".',".$_SESSION["UserID"].")");
 	PrintResultSet($getResults);
 	/* Free query  resources. */  
 	sqlsrv_free_stmt($getResults);

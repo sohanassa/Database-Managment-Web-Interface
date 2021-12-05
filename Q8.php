@@ -5,6 +5,7 @@
 		$serverName = $_SESSION["serverName"];
 		$connectionOptions = $_SESSION["connectionOptions"];
 	} else {
+        print_r($_SESSION);
 		// Session is not correctly set! Redirecting to start page
 		session_unset();
 		session_destroy();
@@ -38,7 +39,6 @@
 	<hr>
 
 	<?php
-	$time_start = microtime(true);
 	echo "Connecting to SQL server (" . $serverName . ")<br/>";
 	echo "Database: " . $connectionOptions['Database'] . ", SQL User: " . $connectionOptions['Uid'] . "<br/>";
 	//echo "Pass: " . $connectionOptions[PWD] . "<br/>";
@@ -47,26 +47,39 @@
 	$conn = sqlsrv_connect($serverName, $connectionOptions);
 
 	//Read Stored proc with param
-	$tsql = "{call aloizi04.Q8(?)}";  
+	$tsql = "{call aloizi04.QTEST(?)}";
+    $tsql_get = "{call aloizi04.QTEST_GET}";
+    $del = "{call aloizi04.QTEST_SUP}";
+//    $tsql = "{call aloizi04.QTEST(?)}";
 
 	// Getting parameter from the http call and setting it for the SQL call
 	$params = array(  
 					 array($_SESSION["RegN"], SQLSRV_PARAM_IN)
-					);  
-
+					);
+    $time_start = microtime(true);
 	$getResults= sqlsrv_query($conn, $tsql, $params);
+    if ($getResults == FALSE) {
+        //make sure temp tables are mdeleted
+        $getResults = sqlsrv_query($conn, $del);
+        die(FormatErrors(sqlsrv_errors()));
+    }
+    $getResults = sqlsrv_query($conn, $tsql_get);
+    $time_end = microtime(true);
 	echo ("Results:<br/>");
-	if ($getResults == FALSE)
-		die(FormatErrors(sqlsrv_errors()));
+    if ($getResults == FALSE)
+        die(FormatErrors(sqlsrv_errors()));
     $logResult = sqlsrv_query($conn, "insert into Log(UserID, ActionDescription) values (".$_SESSION["UserID"].",'(Q8) Viewed most popular question(s) of Company with ID ".$_SESSION["RegN"]."')");
 	PrintResultSet($getResults);
+    //delete temp table
+    $getResults = sqlsrv_query($conn, $del);
+    if ($getResults == FALSE)
+        die(FormatErrors(sqlsrv_errors()));
 	/* Free query  resources. */  
 	sqlsrv_free_stmt($getResults);
 
 	/* Free connection resources. */  
 	sqlsrv_close( $conn); 
 
-	$time_end = microtime(true);
 	$execution_time = round((($time_end - $time_start)*1000),2);
 	echo 'QueryTime: '.$execution_time.' ms';
 
