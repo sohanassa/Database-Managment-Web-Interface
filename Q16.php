@@ -58,7 +58,7 @@
 	echo ("Results:<br/>");
 	if ($getResults == FALSE)
 		die(FormatErrors(sqlsrv_errors()));
-
+    $logResult = sqlsrv_query($conn, "insert into Log(UserID, ActionDescription) values (".$_SESSION["UserID"].",'(Q16) Viewed questions that appear in all questionnaires of Company with ID ".$_SESSION["RegN"]."')");
 	PrintResultSet($getResults);
 	/* Free query  resources. */  
 	sqlsrv_free_stmt($getResults);

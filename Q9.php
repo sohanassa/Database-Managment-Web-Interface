@@ -51,11 +51,11 @@
 
 	// Getting parameter from the http call and setting it for the SQL call
 
-	$getResults= sqlsrv_query($conn, $tsql, $params);
+	$getResults= sqlsrv_query($conn, $tsql);
 	echo ("Results:<br/>");
 	if ($getResults == FALSE)
 		die(FormatErrors(sqlsrv_errors()));
-
+    $logResult = sqlsrv_query($conn, "insert into Log(UserID, ActionDescription) values (".$_SESSION["UserID"].",'(Q9) Viewed count of Question of each Questionnaire of Company with ID ".$_SESSION["RegN"]."')");
 	PrintResultSet($getResults);
 	/* Free query  resources. */  
 	sqlsrv_free_stmt($getResults);

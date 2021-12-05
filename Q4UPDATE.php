@@ -65,6 +65,7 @@
 		die(FormatErrors(sqlsrv_errors()));
 
 	echo 'Company and User updated succefully! <br/>';
+    $logResult = sqlsrv_query($conn, "insert into Log(UserID, ActionDescription) values (".$_SESSION["UserID"].",'Updated User with name ".$_GET["AXname"]." and ID ".$_GET["AXID"]."')");
 	/* Free query  resources. */  
 	sqlsrv_free_stmt($getResults);
 

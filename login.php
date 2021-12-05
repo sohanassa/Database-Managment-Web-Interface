@@ -3,10 +3,14 @@
     if (isset($_POST['connect'])) {
 		//echo "<br/>Setting session variables!<br/>";
 		// collect value of input field
-		$sqlDBname = 'snassa01';
-		$sqlUser = 'snassa01';
-		$sqlPass = 'wAA2UeZY';
-	
+//		$sqlDBname = 'snassa01';
+//		$sqlUser = 'snassa01';
+//		$sqlPass = 'wAA2UeZY';
+        $sqlDBname = 'aloizi04';
+        $sqlUser = 'aloizi04';
+		$sqlPass = 'cJVAqf4P';
+
+
 		if (empty($sqlDBname)) echo "Database name is empty!<br/>";
 		if (empty($sqlUser)) echo "Username is empty!<br/>";
 		if (empty($sqlPass)) echo "Password name is empty!<br/>";
@@ -43,12 +47,14 @@
     if(count($_POST)>0) {
         //Establishes the connection
 	    $con = sqlsrv_connect($serverName, $connectionOptions);
+
         $result = sqlsrv_query($con,"SELECT * FROM Users U WHERE U.Username='" . $_POST["user_name"] . "' and U.Password = '". $_POST["password"]."'");
         $row  = sqlsrv_fetch_array($result);
         if(is_array($row)) {
         $_SESSION["UserID"] = $row['UserID'];
         $_SESSION["RegN"] = $row['RegN'];
         $_SESSION["UserType"] = $row['UserType'];
+        $logResult = sqlsrv_query($con, "insert into Log(UserID, ActionDescription) values (".$_SESSION["UserID"].",'Logged in')");
         } else {
          
         }

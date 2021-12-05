@@ -58,7 +58,7 @@
 	echo ("Results:<br/>");
 	if ($getResults == FALSE)
 		die(FormatErrors(sqlsrv_errors()));
-
+    $logResult = sqlsrv_query($conn, "insert into Log(UserID, ActionDescription) values (".$_SESSION["UserID"].",'(Q14) Viewed questionnaires that contain at least the questions of questionnaire with ID ".$_GET["Qnum"]." (Company with ID ".$_SESSION["RegN"].")')");
 	PrintResultSet($getResults);
 	/* Free query  resources. */  
 	sqlsrv_free_stmt($getResults);

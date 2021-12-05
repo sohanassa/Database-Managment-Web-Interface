@@ -67,6 +67,7 @@
 		die(FormatErrors(sqlsrv_errors()));
 
 	echo 'Company and User added succefully! <br/>';
+    $logResult = sqlsrv_query($conn, "insert into Log(UserID, ActionDescription) values (".$_SESSION["UserID"].",'Created new Company with name ".$_GET["Cname"]." and ID ".$_GET["CRegN"]."')");
 	/* Free query  resources. */  
 	sqlsrv_free_stmt($getResults);
 

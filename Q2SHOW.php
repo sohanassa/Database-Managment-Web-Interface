@@ -47,7 +47,7 @@
 	$conn = sqlsrv_connect($serverName, $connectionOptions);
 
 	//Read Stored proc with param
-	$tsql = "{call aloizi04.Q2SHOW}";  
+	$tsql = "{call aloizi04.Q2SHOW}";
 
 	// Getting parameter from the http call and setting it for the SQL call
 	$params = array(  
@@ -59,7 +59,7 @@
 	echo ("Results:<br/>");
 	if ($getResults == FALSE)
 		die(FormatErrors(sqlsrv_errors()));
-
+    $logResult = sqlsrv_query($conn, "insert into Log(UserID, ActionDescription) values (".$_SESSION["UserID"].",'Viewed all Companies.')");
 	PrintResultSet($getResults);
 	/* Free query  resources. */  
 	sqlsrv_free_stmt($getResults);

@@ -19,6 +19,7 @@
 	</tr>
     </table>
 	<hr>
+    <a href="ViewLog.php">View log</a><br>
 	<a href="Q1SUPER.php">Q1 - Add new company and DE user</a><br><br>
     <a href="Q2SUPER.php">Q2 - View/Edit company and its DE user</a><br>
 
